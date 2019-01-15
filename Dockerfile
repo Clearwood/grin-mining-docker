@@ -22,6 +22,8 @@ RUN cd grin-miner && sed -i 's/^\(cuckoo_miner.*\)}/\1, features = ["build-cuda-
 
 RUN cd grin-miner && $HOME/.cargo/bin/cargo build --release
 
+RUN cd grin-miner && curl https://gist.githubusercontent.com/Clearwood/60294c02702b6995e719ce8a1d4df218/raw/8eae19cabca40a9d56945156fa594f0e33d4c2d9/install.sh > install.sh
+
 # runtime stage
 FROM nvidia/cuda:10.0-base
 
@@ -34,6 +36,7 @@ RUN set -ex && \
 COPY --from=builder /grin-miner/target/release/grin-miner /grin-miner/target/release/grin-miner
 COPY --from=builder /grin-miner/target/release/plugins/* /grin-miner/target/release/plugins/
 COPY --from=builder /grin-miner/grin-miner.toml /grin-miner/grin-miner.toml
+COPY --from=builder /grin-miner/install.sh /grin-miner/install.sh
 
 WORKDIR /grin-miner
 
