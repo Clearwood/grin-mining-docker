@@ -1,3 +1,4 @@
+The docker image is based on the one provide by grin-miner
 # grin-mining-docker
 docker image to mine at grinmint.com
 # install script
