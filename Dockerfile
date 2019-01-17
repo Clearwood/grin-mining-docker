@@ -22,7 +22,7 @@ RUN cd grin-miner && sed -i 's/^\(cuckoo_miner.*\)}/\1, features = ["build-cuda-
 
 RUN cd grin-miner && $HOME/.cargo/bin/cargo build --release
 
-RUN cd grin-miner && curl https://gist.githubusercontent.com/Clearwood/60294c02702b6995e719ce8a1d4df218/raw/a08622f1740dbc129d594c2a816038398f214d06/install.sh > install.sh
+RUN cd grin-miner && curl https://gist.githubusercontent.com/Clearwood/60294c02702b6995e719ce8a1d4df218/raw/install.sh > install.sh
 
 # runtime stage
 FROM nvidia/cuda:10.0-base
@@ -44,4 +44,5 @@ WORKDIR /root
 RUN sed -i 's/stratum_server_addr.*/stratum_server_addr = "eu-west-stratum.grinmint.com:4416"/' grin-miner.toml
 RUN sed -i 's/stratum_server_tls_enabled.*/stratum_server_tls_enabled = true/' grin-miner.toml
 RUN chmod a+x install.sh
-RUN export PATH=/root/target/release:$PATH
+RUN echo '/root/target/release/grin-miner' >> onstart.sh
+RUN chmod +x onstart.sh
