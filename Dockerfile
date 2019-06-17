@@ -18,7 +18,7 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 RUN git clone https://github.com/mimblewimble/grin-miner && cd grin-miner && git submodule update --init
 
-RUN cd grin-miner && sed -i 's/^\(cuckoo_miner.*\)}/\1, features = ["build-cuda-plugins"] }/' Cargo.toml
+#RUN cd grin-miner && sed -i 's/^\(cuckoo_miner.*\)}/\1, features = ["build-cuda-plugins"] }/' Cargo.toml
 
 RUN cd grin-miner && $HOME/.cargo/bin/cargo build --release
 
